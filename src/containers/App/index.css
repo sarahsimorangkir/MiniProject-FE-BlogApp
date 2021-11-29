@@ -1,0 +1,28 @@
+*{
+    box-sizing: border-box;
+}
+
+body{
+    margin: 0px;
+    padding: 0px;
+}
+
+.wrap-content{
+    width: 100%;
+    max-width: 1000px;
+    margin: auto;
+}
+
+.divide-content{
+    display: flex;
+    gap: 20px;
+    width: 100%;
+    
+}
+.divide-content > .content{
+    width: calc(100% - 320px);
+    
+}
+.divide-content > .side{
+    width: 300px;
+}

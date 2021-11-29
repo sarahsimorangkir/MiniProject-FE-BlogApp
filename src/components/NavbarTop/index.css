@@ -1,0 +1,111 @@
+.navbar-custom{
+    display: flex;
+    align-items: center;
+    padding: 5px 0px;
+    border-bottom : 2px solid black;
+
+}
+
+.navbar-custom > .navbar-custom-items{
+    margin-left: auto;
+    gap: 20px;
+    display: flex ;
+    align-items: center;
+
+   
+}
+.navbar-custom > .navbar-custom-items > *{
+    cursor: pointer;
+}
+.navbar-custom > .navbar-custom-items > .search-box{
+    width: 250px;
+    height: 35px;
+    background: #EDEDED;
+    border-radius: 10px;
+   
+}
+.navbar-custom > .navbar-custom-items > .search-box > form{
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+
+}
+.navbar-custom > .navbar-custom-items > .search-box > form > input{
+    width: calc(100% - 45px);
+    background: none;
+    outline: none;
+    border: none;
+}
+.navbar-custom > .navbar-custom-items > button{
+    background: #F61063;
+    border-radius: 10px;
+    height: 35px;
+    border: none;
+    outline: none;
+    color: #FFFFFF;
+    font-weight: bold;
+    padding: 0px 10px;
+}
+
+.navbar-custom > .navbar-custom-items > .search-box > form >  button{
+    background: none;
+    outline: none;
+    width: 45px;
+    border: none;
+}
+.navbar-custom > .navbar-custom-items > .navbar-profile{
+    width: 35px;
+    height: 35px;
+    position: relative;
+}
+.navbar-custom > .navbar-custom-items > .navbar-profile > img{
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+}
+.navbar-custom > .navbar-custom-items > .navbar-profile > .dropdown-item-custom{
+    position:absolute;
+    top : 50px;
+    background: #FFFFFF;
+    right: 0px;
+    width: 155px;
+    padding: 5px;
+    display: flex;
+    flex-direction: column;
+    border-radius: 5px;
+}
+
+.navbar-custom > .navbar-custom-items > .navbar-profile > .dropdown-item-custom.hide{
+    overflow: hidden;
+    height: 0px;
+    padding: 0px;
+}
+.navbar-custom > .navbar-custom-items > .navbar-profile > .dropdown-item-custom > span{
+    padding: 5px 10px;
+    cursor: pointer;
+    user-select: none;
+}
+.navbar-custom > .navbar-custom-items > .navbar-profile > .dropdown-item-custom > span:hover{
+    background: #e6e3e3;
+}
+.modal-auth{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: 100;
+    transform: translate(-50%, -50%);
+    background: #FFFFFF;
+    max-width: 700px;
+    width: 100%;
+    border-radius: 5px;
+    
+}
+.modal-auth.hide{
+    width: 0px;
+    height: 0px;
+    overflow: hidden;
+}
+
+
+
