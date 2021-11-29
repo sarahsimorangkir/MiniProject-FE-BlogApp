@@ -25,4 +25,8 @@ body{
 }
 .divide-content > .side{
     width: 300px;
+    cursor: pointer;
+}
+.error-message{
+    color: #e73939;
 }

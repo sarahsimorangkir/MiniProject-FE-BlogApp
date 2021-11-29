@@ -1,6 +1,6 @@
 const initialState = {
-  isLogin: true,
-  user: null,
+  isLogin: localStorage.getItem("user-login") ? true:false,
+  user: localStorage.getItem("user-login") ? JSON.parse(localStorage.getItem("user-login")):null,
   feeds: [],
   myFeeds: [],
   feedMostlyViewed: [],
@@ -43,6 +43,8 @@ const listAction = [
       };
     },
   },
+
+
   
 ];
 

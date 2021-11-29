@@ -42,6 +42,10 @@
     padding: 0px 10px;
     margin-top: 10px;
 }
+.auth-form >form > button > img{
+    width: 30px;
+    height: 30px;
+}
 .auth-form > span > button{
     outline: none;
     background: none;

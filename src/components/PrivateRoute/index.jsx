@@ -10,7 +10,7 @@ const PrivateRoute = ({
   ...props
 }) => {
   if (props.isLogin) {
-    if ((isAdmin && user.role === 1) || (!isAdmin && user.role === 0)) {
+    if ((isAdmin && user.role === 0) || (!isAdmin && user.role === 1)) {
       return Component ? <Route path={path} element={<Component />} />: children;
     }
 

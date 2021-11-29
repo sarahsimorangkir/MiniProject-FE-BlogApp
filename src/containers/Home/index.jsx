@@ -41,7 +41,7 @@ class Home extends Component {
       limit: 50,
       offset: 0,
       isLoading: false,
-      isLoadingCarousel : false,
+      isLoadingCarousel: false,
     };
   }
   componentDidMount() {
@@ -71,7 +71,10 @@ class Home extends Component {
         isLoadingCarousel: true,
       }));
       this.props
-        .fetchFeedMostlyViewed({ limit: this.state.limit, offset: this.state.offset })
+        .fetchFeedMostlyViewed({
+          limit: this.state.limit,
+          offset: this.state.offset,
+        })
         .then((result) => {
           this.setState((state) => ({
             ...state,
@@ -86,26 +89,29 @@ class Home extends Component {
         });
     }
   }
+
   render() {
     return (
       <div>
         <Carousel responsive={responsive}>
-         {this.props.feedMostlyViewed.length > 0 && 
-         this.props.feedMostlyViewed.map((item, index) =>(
-          <div key={index} className="wrap-carousel-item">
-          <div className="custom-carousel-item shadow-sm">
-            <img src={item.thumbnail} alt="" />
-            <div className="custom-carousel-config">
-              <p>{moment(item.created_at).format("MM/DD/YYYY")}</p>
-              <h4>{item.title}</h4>
-              <div className="custom-author-profile">
-                <div className="rounded-profile shadow-sm">{item.user.fname.substring(0, 1)}</div>
-                <h6>{item.user.fname}</h6>
+          {this.props.feedMostlyViewed.length > 0 &&
+            this.props.feedMostlyViewed.map((item, index) => (
+              <div key={index} className="wrap-carousel-item">
+                <div className="custom-carousel-item shadow-sm">
+                  <img src={item.thumbnail} alt="" />
+                  <div className="custom-carousel-config">
+                    <p>{moment(item.created_at).format("MM/DD/YYYY")}</p>
+                    <h4>{item.title}</h4>
+                    <div className="custom-author-profile">
+                      <div className="rounded-profile shadow-sm">
+                        {item.user.fname.substring(0, 1)}
+                      </div>
+                      <h6>{item.user.fname}</h6>
+                    </div>
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
-        </div>
-         ))}
+            ))}
         </Carousel>
         <div className="divide-content mt-5">
           <div className="content">
@@ -156,7 +162,17 @@ class Home extends Component {
                 );
               })}
           </div>
-          <div className="side"></div>
+          <div className="side">
+            <div className="card">
+              <div className="card-header">Category</div>
+              <ul className="list-group list-group-flush">
+                <li className="list-group-item">Technology</li>
+                <li className="list-group-item">Story</li>
+                <li className="list-group-item">Social</li>
+                <li className="list-group-item">Traditional</li>
+              </ul>
+            </div>
+          </div>
         </div>
       </div>
     );
@@ -165,12 +181,12 @@ class Home extends Component {
 const reduxState = (state) => ({
   isLogin: state.isLogin,
   feeds: state.feeds,
-  feedMostlyViewed : state.feedMostlyViewed,
+  feedMostlyViewed: state.feedMostlyViewed,
 });
 const reduxDispatch = (dispatch) => ({
   changeGlobalRedux: (data) => dispatch(actionChangeGlobalRedux(data)),
   fetchFeeds: (data) => dispatch(actionGetAllFeeds(data)),
-  fetchFeedMostlyViewed : () => dispatch(actionGetAllFeedsMostlyViewed()),
+  fetchFeedMostlyViewed: () => dispatch(actionGetAllFeedsMostlyViewed()),
 });
 
 export default connect(reduxState, reduxDispatch)(Home);

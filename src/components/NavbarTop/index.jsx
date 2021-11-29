@@ -12,7 +12,6 @@ import RegisterForm from "../RegisterForm";
 library.add(faSearch);
 
 
-
 const NavbarTop = (props) => {
   const navigate = useNavigate();
   const [loginForm, setLoginForm] = useState(1)

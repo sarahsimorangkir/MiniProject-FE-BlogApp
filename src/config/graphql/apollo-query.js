@@ -43,3 +43,26 @@ query MyQuery {
 }
 
 `;
+
+exports.QUERY_LOGIN = gql`
+query MyQuery($email: String = "", $password: String = "") {
+  user(where: {email: {_eq: $email}, password: {_eq: $password}}) {
+    id
+    fname
+    email
+    password
+    role
+  }
+}
+`;
+
+exports.QUERY_REGISTER = gql `
+mutation MyMutation($email: String = "", $fname: String = "", $password: String = "") {
+  insert_user_one(object: {email: $email, fname: $fname, password: $password, role: 1}) {
+    id
+    email
+    password
+    fname
+  }
+}
+`;
