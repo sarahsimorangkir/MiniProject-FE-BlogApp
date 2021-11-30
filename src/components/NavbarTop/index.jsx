@@ -89,7 +89,7 @@ const NavbarTop = (props) => {
           <input type="text" name="key" id="key" placeholder="Search Here..." onChange= {handleOnChangeSearch} value={searchKey} />
           </form>
         </div>
-        <button>Create Yours</button>
+        <button>Create Blog</button>
         {!props.isLogin && (
           <span onClick={handleOnClickSign} id="sign-btn">
             Sign In

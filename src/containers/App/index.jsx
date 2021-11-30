@@ -5,6 +5,7 @@ import { actionChangeGlobalRedux } from "../../config/redux/action";
 import { connect } from "react-redux";
 import Home from "../Home";
 import NavbarTop from "../../components/NavbarTop";
+import Footer from "../../components/Footer"
 import "bootstrap/dist/css/bootstrap.min.css";
 
 class App extends Component {
@@ -17,7 +18,10 @@ class App extends Component {
             <Route path="/" element={<Home />} />
           </Routes>
         </div>
+        <Footer />
       </Router>
+     
+     
     );
   }
 }

@@ -2,21 +2,38 @@ import { library } from "@fortawesome/fontawesome-svg-core";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 
 import React, { useState } from "react";
+import { connect } from "react-redux";
+import { actionChangeGlobalRedux, actionRegister } from "../../config/redux/action";
 library.add(faSearch);
+
 const RegisterForm = (props) => {
   const [field, setField] = useState({
     fname : "",
     email : "",
     password : ""
   })
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false)
+
   const handleOnChange = (event) =>{
     let tmp = field
     tmp[event.currentTarget.name] = event.currentTarget.value
     setField(tmp)
   }
   const handleOnSubmit = (event)=>{
-    event.preventDefault()
-    console.log(field)
+    event.preventDefault();
+    setLoading(true);
+    props.registerProcess(field)
+    .then((result)=>{
+      setError("");
+      setLoading(false);
+      let modal = document.getElementById("modal-auth");
+      modal.classList.add("hide")
+    })
+    .catch((err) =>{
+      setLoading(false);
+      
+    })
   }
 
   return (
@@ -66,4 +83,12 @@ const RegisterForm = (props) => {
   );
 };
 
-export default RegisterForm;
+const reduxState = (state) => ({
+  isLogin: state.isLogin,
+});
+const reduxDispatch = (dispatch) => ({
+  changeGlobalRedux: (data) => dispatch(actionChangeGlobalRedux(data)),
+  registerProcess: (data) => dispatch(actionRegister(data)),
+});
+
+export default connect(reduxState, reduxDispatch)(RegisterForm);

@@ -100,7 +100,7 @@ class Home extends Component {
                 <div className="custom-carousel-item shadow-sm">
                   <img src={item.thumbnail} alt="" />
                   <div className="custom-carousel-config">
-                    <p>{moment(item.created_at).format("MM/DD/YYYY")}</p>
+                    <p>{moment(item.created_at).format("LL")}</p>
                     <h4>{item.title}</h4>
                     <div className="custom-author-profile">
                       <div className="rounded-profile shadow-sm">
@@ -144,7 +144,7 @@ class Home extends Component {
                           <div className="date-info">
                             <FontAwesomeIcon icon={faCalendar} />{" "}
                             <span>
-                              {moment(item.created_at).format("MM/DD/YYYY")}
+                              {moment(item.created_at).format("LL")}
                             </span>
                           </div>
                         </div>
@@ -164,7 +164,7 @@ class Home extends Component {
           </div>
           <div className="side">
             <div className="card">
-              <div className="card-header">Category</div>
+              <div className="card-header bolder ">Category</div>
               <ul className="list-group list-group-flush">
                 <li className="list-group-item">Technology</li>
                 <li className="list-group-item">Story</li>

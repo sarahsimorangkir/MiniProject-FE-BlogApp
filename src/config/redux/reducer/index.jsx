@@ -44,7 +44,17 @@ const listAction = [
     },
   },
 
-
+// change register
+{
+  type : "CHANGE_REGISTER",
+  name : "insert_user_one",
+  action : (state, actions)=>{
+    state.insert_user_one = actions.value;
+    return{
+      ...state,
+    }
+  }
+}
   
 ];
 

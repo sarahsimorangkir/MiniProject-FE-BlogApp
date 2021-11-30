@@ -3,6 +3,7 @@ import {
   QUERY_ALL_FEEDS,
   QUERY_ALL_FEEDS_MOSTLY_VIEWED,
   QUERY_LOGIN,
+  QUERY_REGISTER,
 } from "../../graphql/apollo-query";
 
 export const actionChangeGlobalRedux = (data) => {
@@ -71,7 +72,23 @@ export const actionLogin = (data) => (dispatch) => {
         dispatch({ type: "CHANGE_LOGIN", value: false });
         dispatch({ type: "CHANGE_USER", value: null });
         localStorage.removeItem("user-login")
-        reject(500);
+        reject(500); 
       });
   });
 };
+
+export const actionRegister = (data)=>(dispatch) =>{
+  console.log("actt")
+    return new Promise((resolve, reject)=>{
+        client
+        .mutate({
+            mutation: QUERY_REGISTER,
+            variables: {fname : data.fname, email: data.email, password:data.password},
+        })
+        .then((result)=>{
+          dispatch({ type: "CHANGE_LOGIN", value: true });
+          dispatch({ type: "CHANGE_USER", value: result.data.insert_user_one});
+          localStorage.setItem("user-login", JSON.stringify(result.data.insert_user_one))
+        })
+    })
+}
