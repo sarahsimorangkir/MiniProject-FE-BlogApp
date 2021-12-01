@@ -1,5 +1,6 @@
 import React from "react";
-import { Route, Navigate } from "react-router-dom";
+import { connect } from "react-redux";
+import { Route, Redirect } from "react-router-dom";
 import { actionChangeGlobalRedux } from "../../config/redux/action";
 
 const PrivateRoute = ({
@@ -10,12 +11,14 @@ const PrivateRoute = ({
   ...props
 }) => {
   if (props.isLogin) {
-    if ((isAdmin && user.role === 0) || (!isAdmin && user.role === 1)) {
-      return Component ? <Route path={path} element={<Component />} />: children;
+    if (
+      (isAdmin && props.user.role === 0) ||
+      (!isAdmin && props.user.role === 1)
+    ) {
+      return Component ? <Route path={path} component={Component} /> : children;
     }
-
   }
-  return <Navigate to="/" />;
+  return <Redirect to="/" />;
 };
 
 const reduxState = (state) => ({

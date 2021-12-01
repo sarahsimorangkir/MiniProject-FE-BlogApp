@@ -11,11 +11,10 @@ import LoginForm from "../LoginForm";
 import RegisterForm from "../RegisterForm";
 library.add(faSearch);
 
-
 const NavbarTop = (props) => {
   const history = useHistory();
-  const [loginForm, setLoginForm] = useState(1)
-  const [searchKey, setSearchKey] = useState("")
+  const [loginForm, setLoginForm] = useState(1);
+  const [searchKey, setSearchKey] = useState("");
   const handleOnClickDropdown = (event) => {
     let target = document.getElementById("dropdown-profile");
     if (target.classList.contains("hide")) {
@@ -24,8 +23,9 @@ const NavbarTop = (props) => {
       target.classList.add("hide");
     }
   };
-  const handleOnClickYourArticle = (event) => {
-    history.push("/createblog");
+  const handleOnClickRedirect = (event) => {
+    let target = event.target.getAttribute("data-path");
+    history.push(target);
   };
   const handleOnClickLogout = (event) => {
     localStorage.clear();
@@ -62,15 +62,14 @@ const NavbarTop = (props) => {
     }
   };
 
-  const handleOnChangeSearch = (event) =>{
-      setSearchKey(event.currentTarget.value)
-  }
+  const handleOnChangeSearch = (event) => {
+    setSearchKey(event.currentTarget.value);
+  };
 
-  const handleOnClickSearch = (event) =>{
-      event.preventDefault()
-      console.log(searchKey)
-      
-  }
+  const handleOnClickSearch = (event) => {
+    event.preventDefault();
+    console.log(searchKey);
+  };
 
   useEffect(() => {
     window.addEventListener("click", handleWindowOnClick, false);
@@ -83,13 +82,22 @@ const NavbarTop = (props) => {
       <div className="navbar-custom-items">
         <div className="search-box">
           <form onSubmit={handleOnClickSearch}>
-          <button type="submit">
-            <FontAwesomeIcon icon={faSearch} />
-          </button>
-          <input type="text" name="key" id="key" placeholder="Search Here..." onChange= {handleOnChangeSearch} value={searchKey} />
+            <button type="submit">
+              <FontAwesomeIcon icon={faSearch} />
+            </button>
+            <input
+              type="text"
+              name="key"
+              id="key"
+              placeholder="Search Here..."
+              onChange={handleOnChangeSearch}
+              value={searchKey}
+            />
           </form>
         </div>
-        <button onClick={handleOnClickYourArticle}>Create Blog</button>
+        <button data-path="/createblog" onClick={handleOnClickRedirect}>
+          Create Blog
+        </button>
         {!props.isLogin && (
           <span onClick={handleOnClickSign} id="sign-btn">
             Sign In
@@ -108,19 +116,29 @@ const NavbarTop = (props) => {
               className="dropdown-item-custom shadow hide"
               id="dropdown-profile"
             >
-              <span onClick={handleOnClickYourArticle}>Your Article </span>
+              <span data-path="/yourarticle" onClick={handleOnClickRedirect}>
+                Your Article{" "}
+              </span>
               <span onClick={handleOnClickLogout}>Log out</span>
             </div>
           </div>
         )}
       </div>
       <div className="modal-auth hide shadow" id="modal-auth">
-        {loginForm === 1 && <LoginForm  onClickState  = {()=>{
-            setLoginForm(0)
-        }}/>}
-        {loginForm === 0 && <RegisterForm onClickState  = {()=>{
-            setLoginForm(1)
-        }} />}
+        {loginForm === 1 && (
+          <LoginForm
+            onClickState={() => {
+              setLoginForm(0);
+            }}
+          />
+        )}
+        {loginForm === 0 && (
+          <RegisterForm
+            onClickState={() => {
+              setLoginForm(1);
+            }}
+          />
+        )}
       </div>
     </div>
   );

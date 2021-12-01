@@ -9,7 +9,6 @@ import {
   QUERY_UPDATE_ARTICLE,
 } from "../../graphql/apollo-query";
 
-
 export const actionChangeGlobalRedux = (data) => {
   return (dispatch) => {
     return dispatch({ type: data.type, value: data.value });
@@ -117,82 +116,77 @@ export const actionRegister = (data) => (dispatch) => {
 
 export const actionCreateBlog = (data) => (dispatch, getState) => {
   return new Promise((resolve, reject) => {
-    console.log(data)
-    client.mutate({
-      mutation: QUERY_CREATE_FEEDS,
-      variables: {
-        category_id :Number(data.category_id) ,
-        created_by: Number(data.created_by),
-        thumbnail: data.thumbnail,
-        title: data.title,
-        description: data.description,
-      }      
-    })
-    .then ((result) => {
-      console.log("calling")
-        dispatch({type : "ADD_FEEDS", value: result.data.insert_feeds_one})
-        resolve(200)
-    }).catch((err) =>{
-      console.log(err)
-      reject(500)
-
-    })
-    
+    console.log(data);
+    client
+      .mutate({
+        mutation: QUERY_CREATE_FEEDS,
+        variables: {
+          category_id: Number(data.category_id),
+          created_by: Number(data.created_by),
+          thumbnail: data.thumbnail,
+          title: data.title,
+          description: data.description,
+        },
+      })
+      .then((result) => {
+        console.log("calling");
+        dispatch({ type: "ADD_FEEDS", value: result.data.insert_feeds_one });
+        resolve(200);
+      })
+      .catch((err) => {
+        console.log(err);
+        reject(500);
+      });
   });
 };
 
-export const actionOwnArticle = (data) => (dispatch)=>{
+export const actionOwnArticle = (data) => (dispatch) => {
   return new Promise((resolve, reject) => {
     client
       .query({
         query: QUERY_GET_OWN_ARTICLE,
-        variables: { 
-          created_at : data.created_at,
-          description : data.description,
-          id : Number(data.id),
-          thumbnail : data.thumbnail,
-          title : data.title,
-          views : Number(data.views),
-
-         },
-
+        variables: {
+          created_at: data.created_at,
+          description: data.description,
+          id: Number(data.id),
+          thumbnail: data.thumbnail,
+          title: data.title,
+          views: Number(data.views),
+        },
       })
       .then((result) => {
         dispatch({ type: "CHANGE_OWN_ARTICLE", value: result.data.feeds });
-        console.log(result.data)
         resolve(result.data);
-        
       })
       .catch((err) => {
         reject(err);
       });
   });
 };
-export const actionUpdateArticle = (data) => (dispatch) =>{
-  return new Promise((resolve, reject) =>{
-    console.log(data)
+export const actionUpdateArticle = (data) => (dispatch) => {
+  return new Promise((resolve, reject) => {
+    console.log(data);
     client
-    .mutate({
-      mutation: QUERY_UPDATE_ARTICLE,
-      variables: {
-        id : Number(data.id),
-        category_id : Number(data.category_id),
-        thumbnail: data.thumbnail,
-        title: data.title,
-        description: data.description,
-      }
-    })
-    .then ((result) => {
-      console.log("calling")
-        dispatch({type : "UPDATE_FEEDS", value: result.data.ownArticle,index:data.index})
-        resolve(200)
-    }).catch((err) =>{
-      console.log(err)
-      reject(500)
-
-    })
-    
+      .mutate({
+        mutation: QUERY_UPDATE_ARTICLE,
+        variables: {
+          id: Number(data.id),
+          category_id: Number(data.category_id),
+          thumbnail: data.thumbnail,
+          title: data.title,
+          description: data.description,
+        },
+      })
+      .then((result) => {
+        dispatch({
+          type: "UPDATE_FEEDS",
+          value: result.data.update_feeds.returning[0],
+          index: data.index,
+        });
+        resolve(200);
+      })
+      .catch((err) => {
+        reject(500);
+      });
   });
 };
-
-

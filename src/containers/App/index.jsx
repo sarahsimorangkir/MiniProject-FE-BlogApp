@@ -5,12 +5,13 @@ import { actionChangeGlobalRedux } from "../../config/redux/action";
 import { connect } from "react-redux";
 import Home from "../Home";
 import NavbarTop from "../../components/NavbarTop";
-import Footer from "../../components/Footer"
+import Footer from "../../components/Footer";
 import "bootstrap/dist/css/bootstrap.min.css";
 import FeedsDetail from "../FeedsDetail";
 import CreateBlog from "../CreateBlog";
 import OwnArticle from "../OwnArticle";
 import EditBlog from "../EditBlog";
+import PrivateRoute from "../../components/PrivateRoute";
 
 class App extends Component {
   render() {
@@ -20,16 +21,14 @@ class App extends Component {
           <NavbarTop />
           <Switch>
             <Route exact path="/" component={Home} />
-            <Route path = "/feeds/detail/:type/:index" component={FeedsDetail} />
-            <Route path = "/createblog" component={CreateBlog} />
-            <Route path = "/yourarticle" component={OwnArticle}/>
-            <Route path = "/editblog/:index" component= {EditBlog}/>
+            <Route path="/feeds/detail/:type/:index" component={FeedsDetail} />
+            <PrivateRoute path="/createblog" component={CreateBlog} />
+            <PrivateRoute path="/yourarticle" component={OwnArticle} />
+            <PrivateRoute path="/editblog/:index" component={EditBlog} />
           </Switch>
         </div>
         <Footer />
       </Router>
-     
-     
     );
   }
 }

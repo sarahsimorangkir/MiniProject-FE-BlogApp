@@ -1,10 +1,12 @@
 const initialState = {
-  isLogin: localStorage.getItem("user-login") ? true:false,
-  user: localStorage.getItem("user-login") ? JSON.parse(localStorage.getItem("user-login")):null,
+  isLogin: localStorage.getItem("user-login") ? true : false,
+  user: localStorage.getItem("user-login")
+    ? JSON.parse(localStorage.getItem("user-login"))
+    : null,
   feeds: [],
   myFeeds: [],
   feedMostlyViewed: [],
-  ownArticle : [],
+  ownArticle: [],
 };
 
 const listAction = [
@@ -45,47 +47,48 @@ const listAction = [
     },
   },
 
-// change register
-{
-  type : "CHANGE_REGISTER",
-  name : "insert_user_one",
-  action : (state, actions)=>{
-    state.insert_user_one = actions.value;
-    return{
-      ...state,
-    }
-  }
-},
-//Add Feeds
+  // change register
+  {
+    type: "CHANGE_REGISTER",
+    name: "insert_user_one",
+    action: (state, actions) => {
+      state.insert_user_one = actions.value;
+      return {
+        ...state,
+      };
+    },
+  },
+  //Add Feeds
 
-{
-  type : "ADD_FEEDS",
-  name : "feeds",
-  action : (state, actions)=>{
-    state.feeds.push(actions.value);
-    return{
-      ...state,
-    }
-  }
-},
-//Change Own Article
-{
-  type : "CHANGE_OWN_ARTICLE",
-  name : "ownArticle",
-  action : null,
-},
-//Update Feeds 
-{
-  type : "UPDATE_FEEDS",
-  name : "ownArticle",
-  action : (state, actions)=>{
-    state.ownArticle[0]=actions.value;
-    return{
-      ...state,
-    }
-  }
-}
-  
+  {
+    type: "ADD_FEEDS",
+    name: "feeds",
+    action: (state, actions) => {
+      state.feeds.push(actions.value);
+      return {
+        ...state,
+      };
+    },
+  },
+  //Change Own Article
+  {
+    type: "CHANGE_OWN_ARTICLE",
+    name: "ownArticle",
+    action: null,
+  },
+  //Update Feeds
+  {
+    type: "UPDATE_FEEDS",
+    name: "ownArticle",
+    action: (state, actions) => {
+      let temp = [...state.ownArticle];
+      temp[actions.index] = actions.value;
+      state.ownArticle = temp;
+      return {
+        ...state,
+      };
+    },
+  },
 ];
 
 const reducer = (state = initialState, actions) => {
