@@ -13,6 +13,8 @@ import { faCalendar } from "@fortawesome/free-solid-svg-icons";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import moment from "moment";
 import Loading from "../../assets/img/icon/loading.gif";
+
+
 library.add(faCalendar);
 
 const responsive = {
@@ -90,13 +92,29 @@ class Home extends Component {
     }
   }
 
+  handleOnClickFeeds = (event) => {
+    let target = event.currentTarget;
+    let index = target.getAttribute("data-index");
+    let type = target.getAttribute("data-type");
+    console.log(index + type);
+    this.props.history.push(`/feeds/detail/${type}/${index}`);
+    const { history } = this.props;
+    console.log(history);
+  };
+
   render() {
     return (
       <div>
         <Carousel responsive={responsive}>
           {this.props.feedMostlyViewed.length > 0 &&
             this.props.feedMostlyViewed.map((item, index) => (
-              <div key={index} className="wrap-carousel-item">
+              <div
+                key={index}
+                onClick={this.handleOnClickFeeds}
+                data-index={index}
+                data-type={"carousel"}
+                className="wrap-carousel-item"
+              >
                 <div className="custom-carousel-item shadow-sm">
                   <img src={item.thumbnail} alt="" />
                   <div className="custom-carousel-config">
@@ -143,18 +161,21 @@ class Home extends Component {
                           </div>
                           <div className="date-info">
                             <FontAwesomeIcon icon={faCalendar} />{" "}
-                            <span>
-                              {moment(item.created_at).format("LL")}
-                            </span>
+                            <span>{moment(item.created_at).format("LL")}</span>
                           </div>
                         </div>
                       </div>
-                      <p className="card-text-custom mt-3">
-                        {item.description.substring(0, 255)}
-                      </p>
+                      <div className="card-text-custom mt-3" dangerouslySetInnerHTML={{__html:item.description.split("</p>")[0]+"</p>"}}>
+                  
+                      </div>
                     </div>
                     <div className="card-footer-custom ">
-                      <button className="btn-primary-custom">
+                      <button
+                        className="btn-primary-custom"
+                        onClick={this.handleOnClickFeeds}
+                        data-index={index}
+                        data-type={"card"}
+                      >
                         Continue Reading
                       </button>
                     </div>

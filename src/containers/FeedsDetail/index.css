@@ -1,0 +1,10 @@
+.detail > h4{
+    margin-top: 10px;
+    text-align: center;
+    margin-bottom: 15px;
+}
+.detail > img{
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}

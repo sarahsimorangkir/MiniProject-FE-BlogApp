@@ -56,7 +56,7 @@ const RegisterForm = (props) => {
         <div className="form-login-group">
           <label htmlFor="email">Email</label>
           <input
-            type="text"
+            type="email"
             name="email"
             id="email"
             placeholder="Type your email"

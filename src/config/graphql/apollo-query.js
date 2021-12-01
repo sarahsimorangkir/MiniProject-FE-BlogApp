@@ -66,3 +66,72 @@ mutation MyMutation($email: String = "", $fname: String = "", $password: String 
   }
 }
 `;
+
+exports.QUERY_CREATE_FEEDS = gql `
+mutation MyMutation($category_id: Int = 2, $created_by: Int = 2, $description: String = "", $thumbnail: String = "", $title: String = "") {
+  insert_feeds_one(object: {category_id: $category_id, created_by: $created_by, description: $description, thumbnail: $thumbnail, title: $title}){
+    created_by
+    created_at
+    id
+    thumbnail
+    title
+    description
+    category {
+      id
+      name
+    }
+    views
+    user {
+      fname
+      id
+    }
+  }
+}
+
+`;
+
+exports.QUERY_GET_OWN_ARTICLE = gql `
+query MyQuery($id: Int) {
+  feeds(where: {created_by: {_eq: $id}}) {
+    created_at
+    description
+    id
+    thumbnail
+    title
+    views
+    user {
+      fname
+      id
+    }
+    category {
+      id
+      name
+    }
+  }
+}
+`;
+
+exports.QUERY_UPDATE_ARTICLE =gql `
+mutation MyMutation($id: Int , $category_id: Int , $description: String = "", $thumbnail: String = "", $title: String = "") {
+  update_feeds(where: {id: {_eq: $id}}, _set: {category_id: $category_id, description: $description, thumbnail: $thumbnail, title: $title}) {
+    returning {
+    created_by
+    created_at
+    id
+    thumbnail
+    title
+    description
+    category {
+      id
+      name
+    }
+    views
+    user {
+      fname
+      id
+    }
+    }
+  }
+}
+
+`;

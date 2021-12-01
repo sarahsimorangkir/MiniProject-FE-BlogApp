@@ -4,6 +4,7 @@ const initialState = {
   feeds: [],
   myFeeds: [],
   feedMostlyViewed: [],
+  ownArticle : [],
 };
 
 const listAction = [
@@ -50,6 +51,35 @@ const listAction = [
   name : "insert_user_one",
   action : (state, actions)=>{
     state.insert_user_one = actions.value;
+    return{
+      ...state,
+    }
+  }
+},
+//Add Feeds
+
+{
+  type : "ADD_FEEDS",
+  name : "feeds",
+  action : (state, actions)=>{
+    state.feeds.push(actions.value);
+    return{
+      ...state,
+    }
+  }
+},
+//Change Own Article
+{
+  type : "CHANGE_OWN_ARTICLE",
+  name : "ownArticle",
+  action : null,
+},
+//Update Feeds 
+{
+  type : "UPDATE_FEEDS",
+  name : "ownArticle",
+  action : (state, actions)=>{
+    state.ownArticle[0]=actions.value;
     return{
       ...state,
     }

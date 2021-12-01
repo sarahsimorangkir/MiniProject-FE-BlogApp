@@ -6,14 +6,14 @@ import "./index.css";
 import { connect } from "react-redux";
 import { actionChangeGlobalRedux } from "../../config/redux/action";
 import Dummy from "../../assets/img/dummy/dummyProfile.png";
-import { useNavigate } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import LoginForm from "../LoginForm";
 import RegisterForm from "../RegisterForm";
 library.add(faSearch);
 
 
 const NavbarTop = (props) => {
-  const navigate = useNavigate();
+  const history = useHistory();
   const [loginForm, setLoginForm] = useState(1)
   const [searchKey, setSearchKey] = useState("")
   const handleOnClickDropdown = (event) => {
@@ -25,7 +25,7 @@ const NavbarTop = (props) => {
     }
   };
   const handleOnClickYourArticle = (event) => {
-    navigate("/");
+    history.push("/createblog");
   };
   const handleOnClickLogout = (event) => {
     localStorage.clear();
@@ -89,7 +89,7 @@ const NavbarTop = (props) => {
           <input type="text" name="key" id="key" placeholder="Search Here..." onChange= {handleOnChangeSearch} value={searchKey} />
           </form>
         </div>
-        <button>Create Blog</button>
+        <button onClick={handleOnClickYourArticle}>Create Blog</button>
         {!props.isLogin && (
           <span onClick={handleOnClickSign} id="sign-btn">
             Sign In

@@ -1,12 +1,16 @@
 import React, { Component } from "react";
 import "./index.css";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { actionChangeGlobalRedux } from "../../config/redux/action";
 import { connect } from "react-redux";
 import Home from "../Home";
 import NavbarTop from "../../components/NavbarTop";
 import Footer from "../../components/Footer"
 import "bootstrap/dist/css/bootstrap.min.css";
+import FeedsDetail from "../FeedsDetail";
+import CreateBlog from "../CreateBlog";
+import OwnArticle from "../OwnArticle";
+import EditBlog from "../EditBlog";
 
 class App extends Component {
   render() {
@@ -14,9 +18,13 @@ class App extends Component {
       <Router>
         <div className="wrap-content">
           <NavbarTop />
-          <Routes>
-            <Route path="/" element={<Home />} />
-          </Routes>
+          <Switch>
+            <Route exact path="/" component={Home} />
+            <Route path = "/feeds/detail/:type/:index" component={FeedsDetail} />
+            <Route path = "/createblog" component={CreateBlog} />
+            <Route path = "/yourarticle" component={OwnArticle}/>
+            <Route path = "/editblog/:index" component= {EditBlog}/>
+          </Switch>
         </div>
         <Footer />
       </Router>
