@@ -77,7 +77,9 @@ const NavbarTop = (props) => {
   return (
     <div className="navbar-custom">
       <div className="navbar-custom-brand">
-        <h2>BLOGMARK</h2>
+        <h2 onClick={handleOnClickRedirect} data-path="/">
+          BLOGMARK
+        </h2>
       </div>
       <div className="navbar-custom-items">
         <div className="search-box">

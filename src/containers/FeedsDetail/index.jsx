@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
 import moment from "moment";
-import './index.css'
+import "./index.css";
 import { useParams, useHistory } from "react-router-dom";
 import { actionChangeGlobalRedux } from "../../config/redux/action";
 import { connect } from "react-redux";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCalendar } from "@fortawesome/free-solid-svg-icons";
 
 const FeedsDetail = (props) => {
   const { index, type } = useParams();
@@ -29,13 +31,35 @@ const FeedsDetail = (props) => {
   return (
     <div className="divide-content mt-5">
       <div className="content detail">
-        {source.length > Number(index) + 1 && <h4> {currentActive.title}</h4>}<hr/>
-        {source.length > Number(index) + 1 && <img src={currentActive.thumbnail} className="card-img-top"/>}
-        {source.length > Number(index) + 1 &&  <div className="rounded-profile shadow-sm">{currentActive.user.fname.substring(0, 1)}</div> }
-        {source.length > Number(index) + 1 && <p>{moment(currentActive.created_at).format("LL")}</p>}
-        {source.length > Number(index) + 1 &&  <h6>{currentActive.user.fname}</h6>  }
-        {source.length > Number(index) + 1 && (<div className="card-text-custom-detail mt-3" dangerouslySetInnerHTML={{__html:currentActive.description.split("</p>")[0]+"</p>"}}></div>)}
-
+        {source.length > Number(index) + 1 && <h4> {currentActive.title}</h4>}
+        <hr />
+        {source.length > Number(index) + 1 && (
+          <img src={currentActive.thumbnail} className="card-img-top" alt="" />
+        )}
+        <div className="d-flex config-card-detail justify-content-center mt-4 gap-20">
+          {source.length > Number(index) + 1 && (
+            <div className="rounded-profile shadow-sm">
+              {currentActive.user.fname.substring(0, 1)}
+            </div>
+          )}
+          {source.length > Number(index) + 1 && (
+            <span>{currentActive.user.fname}</span>
+          )}
+          {source.length > Number(index) + 1 && (
+            <div className=" flex-center gap-20">
+              <FontAwesomeIcon icon={faCalendar} />
+              <span>{moment(currentActive.created_at).format("LL")}</span>
+            </div>
+          )}
+        </div>
+        {source.length > Number(index) + 1 && (
+          <div
+            className="card-text-custom-detail mt-3"
+            dangerouslySetInnerHTML={{
+              __html: currentActive.description.split("</p>")+ "</p>",
+            }}
+          ></div>
+        )}
       </div>
 
       <div className="side">

@@ -3,11 +3,12 @@ import { connect } from "react-redux";
 import { useHistory } from "react-router";
 import {
   actionChangeGlobalRedux,
+  actionDeleteFeeds,
   actionOwnArticle,
 } from "../../config/redux/action";
 
 const OwnArticle = (props) => {
-    const history = useHistory()
+  const history = useHistory();
   useEffect(() => {
     if (props.ownArticle.length <= 0) {
       console.log("call mee");
@@ -19,12 +20,21 @@ const OwnArticle = (props) => {
           console.log(err);
         });
     }
-  }); 
+  });
   const handleOnClickEdit = (event) => {
     let target = event.currentTarget;
     let index = target.getAttribute("data-index");
-    history.push('/editblog/'+index)
-
+    history.push("/editblog/" + index);
+  };
+  const handleDeleteData = (event) => {
+    let target = event.currentTarget;
+    let id = target.getAttribute("data-id");
+    let index = target.getAttribute("data-index");
+    console.log(target);
+    props
+      .deleteFeeds({ id: id, index: index })
+      .then((result) => {})
+      .catch((err) => {});
   };
 
   return (
@@ -57,7 +67,14 @@ const OwnArticle = (props) => {
                       >
                         Edit
                       </button>
-                      <button className="btn btn-danger">Delete</button>
+                      <button
+                        data-id={item.id}
+                        data-index={index}
+                        onClick={handleDeleteData}
+                        className="btn btn-danger"
+                      >
+                        Delete
+                      </button>
                     </p>
                   </div>
                 </div>
@@ -77,6 +94,7 @@ const reduxState = (state) => ({
 const reduxDispatch = (dispatch) => ({
   changeGlobalRedux: (data) => dispatch(actionChangeGlobalRedux(data)),
   ownArticleProcess: (data) => dispatch(actionOwnArticle(data)),
+  deleteFeeds: (data) => dispatch(actionDeleteFeeds(data)),
 });
 
 export default connect(reduxState, reduxDispatch)(OwnArticle);

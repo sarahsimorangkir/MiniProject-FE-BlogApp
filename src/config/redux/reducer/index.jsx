@@ -76,6 +76,19 @@ const listAction = [
     name: "ownArticle",
     action: null,
   },
+  //DELETE Own Article
+  {
+    type: "DELETE_OWN_ARTICLE",
+    name: "ownArticle",
+    action: (state, actions) => {
+      let ownArticle = [...state.ownArticle];
+      ownArticle.splice(actions.index, 1);
+      state.ownArticle = ownArticle;
+      return {
+        ...state,
+      };
+    },
+  },
   //Update Feeds
   {
     type: "UPDATE_FEEDS",

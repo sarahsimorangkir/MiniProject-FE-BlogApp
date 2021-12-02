@@ -1,13 +1,15 @@
 import client from "../../graphql/apollo-client";
 import {
+
   QUERY_ALL_FEEDS,
   QUERY_ALL_FEEDS_MOSTLY_VIEWED,
   QUERY_CREATE_FEEDS,
+  QUERY_DELETE_FEEDS,
   QUERY_GET_OWN_ARTICLE,
   QUERY_LOGIN,
   QUERY_REGISTER,
   QUERY_UPDATE_ARTICLE,
-} from "../../graphql/apollo-query";
+} from "../../graphql/apollo-query"
 
 export const actionChangeGlobalRedux = (data) => {
   return (dispatch) => {
@@ -134,7 +136,6 @@ export const actionCreateBlog = (data) => (dispatch, getState) => {
         resolve(200);
       })
       .catch((err) => {
-        console.log(err);
         reject(500);
       });
   });
@@ -186,6 +187,33 @@ export const actionUpdateArticle = (data) => (dispatch) => {
         resolve(200);
       })
       .catch((err) => {
+        reject(500);
+      });
+  });
+};
+
+export const actionDeleteFeeds = (data) => (dispatch) => {
+  return new Promise((resolve, reject) => {
+    console.log(data);
+    client
+      .mutate({
+        mutation: QUERY_DELETE_FEEDS,
+        variables: {
+          id: Number(data.id),
+        },
+      })
+      .then((result) => {
+        console.log("here");
+        dispatch({
+          type: "DELETE_OWN_ARTICLE",
+          value: Number(data.id),
+          index: Number(data.index),
+        });
+
+        resolve(200);
+      })
+      .catch((err) => {
+        console.log(err);
         reject(500);
       });
   });
